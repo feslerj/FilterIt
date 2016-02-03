@@ -16,7 +16,7 @@ namespace FilterIt
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmFilterIt());
+            Application.Run(new FrmFilterIt());
         }
     }
 }

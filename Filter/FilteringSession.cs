@@ -4,7 +4,6 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Excel;
 using LumenWorks.Framework.IO.Csv;
 
@@ -63,7 +62,7 @@ namespace Filter
             }
             catch (Exception ex)
             {
-                Logger.Error("Could not load file");
+                Logger.Error("Could not load file", ex);
                 return false;
             }
             return true;
@@ -154,7 +153,9 @@ namespace Filter
             return count;
         }
 
-        private DataTable GetDataSetFromCsvFile(string filename)
+        public bool FileIsLoaded { get { return _fileData != null; } }
+
+        private static DataTable GetDataSetFromCsvFile(string filename)
         {
             var csvReader = new CachedCsvReader(File.OpenText(filename), true);
 
@@ -181,7 +182,7 @@ namespace Filter
             return dt;
         }
 
-        private DataTable GetDataSetFromExcelFile(string filename)
+        private static DataTable GetDataSetFromExcelFile(string filename)
         {
             FileStream stream = File.Open(filename, FileMode.Open, FileAccess.Read);
 
@@ -194,16 +195,18 @@ namespace Filter
                 }
             }
             // Reading from a OpenXml Excel file (2007 format; *.xlsx)
-            else
+            if (filename.EndsWith(".xlsx"))
             {
                 using (IExcelDataReader excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream))
                 {
                     return GetDataTableFromExcelReader(excelReader);
                 }
             }
+
+            return new DataTable();
         }
 
-        private DataTable GetDataTableFromExcelReader(IExcelDataReader excelReader)
+        private static DataTable GetDataTableFromExcelReader(IExcelDataReader excelReader)
         {
             var dt = excelReader.AsDataSet().Tables[0];
             for (int i = 0; i < dt.Columns.Count; i++)
@@ -213,7 +216,7 @@ namespace Filter
             return dt;
         }
 
-        private string WriteCsvLine(DataRow row)
+        private static string WriteCsvLine(DataRow row)
         {
             var build = new StringBuilder();
             foreach (var field in row.ItemArray)
