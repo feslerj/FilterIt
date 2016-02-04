@@ -155,6 +155,8 @@ namespace Filter
 
         public bool FileIsLoaded { get { return _fileData != null; } }
 
+        public int NumberOfRecords { get { return _fileData == null ? 0 : _fileData.Rows.Count; } }
+
         private static DataTable GetDataSetFromCsvFile(string filename)
         {
             var csvReader = new CachedCsvReader(File.OpenText(filename), true);

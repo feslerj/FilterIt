@@ -35,7 +35,8 @@ namespace FilterIt
                 _fileName = openFileDialog1.FileName;
 
                 //Clear and set all UI information
-                ddFilters.Visible = btnFilterIt.Visible = false;
+                lblFilterOptions.Visible = ddFilters.Visible = btnFilterIt.Visible = false;
+                lblNumberOfRecords.Text = @"Loading ...";
                 lstColumns.SelectedIndex = -1;
                 lstColumns.Items.Clear();
                 lblCurrentFile.Text = Path.GetFileName(_fileName);
@@ -47,6 +48,8 @@ namespace FilterIt
                 //Note: It looks weird Resharper is yelling about co-varient stuff, 
                 //and I'd rather just not hear it instead of having a micro performance increase
                 lstColumns.Items.AddRange(_filterSesion.GetHeaders().OfType<object>().ToArray());
+
+                lblNumberOfRecords.Text = _filterSesion.NumberOfRecords.ToString();
             }
         }
 
@@ -55,7 +58,7 @@ namespace FilterIt
             //If the selected index is actually picking a column to filter on, make the do-dads visible
             if (lstColumns.SelectedIndex != -1)
             {
-                ddFilters.Visible = btnFilterIt.Visible = true;
+                lblFilterOptions.Visible = ddFilters.Visible = btnFilterIt.Visible = true;
             }
         }
 
@@ -77,7 +80,10 @@ namespace FilterIt
 
             //Only save state if filtering is confirmed
             if (result == DialogResult.Yes)
+            {
                 _filterSesion.ConfirmFilter();
+                lblNumberOfRecords.Text = _filterSesion.NumberOfRecords.ToString();
+            }
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -86,11 +92,27 @@ namespace FilterIt
             _filterSesion.SaveRecords(filteredFileName);
             
             MessageBox.Show(string.Format("Saved as {0}!", filteredFileName));
+
+            if (Environment.OSVersion.Platform == PlatformID.Win32Windows || Environment.OSVersion.Platform == PlatformID.Win32NT)
+            {
+                System.Diagnostics.Process.Start("explorer.exe", @"/select, " + filteredFileName);
+            }
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(String.Concat(@"1. Open a csv or Excel file you would like to filter records on.", Environment.NewLine,
+                                          @"2. Choose a column to filter in the list box", Environment.NewLine,
+                                          @"3. Choose a way to filter the item in the dropdown box", Environment.NewLine,
+                                          @"4. Push the Filter It! button to save a list of the removed records and confirm that you want those records removed.", Environment.NewLine,
+                                          @"5. Save the new filtered set of records along side the original file"
+                                ), "Info", MessageBoxButtons.OK);
+            ;
         }
     }
 }

@@ -32,6 +32,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
@@ -39,18 +40,23 @@
             this.btnFilterIt = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.ddFilters = new System.Windows.Forms.ComboBox();
-            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblCurrentFile = new System.Windows.Forms.Label();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lblFilterOptions = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.lblNumberOfRecords = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(224, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(283, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -68,40 +74,46 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(100, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // openFileDialog1
             // 
-            this.openFileDialog1.DefaultExt = "csv";
-            this.openFileDialog1.Filter = "Comma Seperated Files (*.csv)|*.csv|Excel Files (*.xls, *.xlsx)|*.xls;*.xlsx|All " +
+            this.openFileDialog1.Filter = "Excel Files (*.xls, *.xlsx)|*.xls;*.xlsx|Comma Seperated Files (*.csv)|*.csv|All " +
     "files (*.*)|*.*";
             // 
             // lstColumns
             // 
             this.lstColumns.FormattingEnabled = true;
-            this.lstColumns.Location = new System.Drawing.Point(12, 53);
+            this.lstColumns.Location = new System.Drawing.Point(12, 63);
             this.lstColumns.Name = "lstColumns";
-            this.lstColumns.Size = new System.Drawing.Size(200, 95);
+            this.lstColumns.Size = new System.Drawing.Size(259, 95);
             this.lstColumns.TabIndex = 1;
             this.lstColumns.SelectedIndexChanged += new System.EventHandler(this.lstColumns_SelectedIndexChanged);
             // 
             // btnFilterIt
             // 
-            this.btnFilterIt.Location = new System.Drawing.Point(12, 195);
+            this.btnFilterIt.Location = new System.Drawing.Point(12, 239);
             this.btnFilterIt.Name = "btnFilterIt";
             this.btnFilterIt.Size = new System.Drawing.Size(75, 23);
             this.btnFilterIt.TabIndex = 2;
@@ -113,32 +125,76 @@
             // ddFilters
             // 
             this.ddFilters.FormattingEnabled = true;
-            this.ddFilters.Location = new System.Drawing.Point(12, 154);
+            this.ddFilters.Location = new System.Drawing.Point(12, 212);
             this.ddFilters.Name = "ddFilters";
-            this.ddFilters.Size = new System.Drawing.Size(200, 21);
+            this.ddFilters.Size = new System.Drawing.Size(259, 21);
             this.ddFilters.TabIndex = 3;
             this.ddFilters.Visible = false;
-            // 
-            // saveToolStripMenuItem
-            // 
-            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.saveToolStripMenuItem.Text = "Save";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // lblCurrentFile
             // 
             this.lblCurrentFile.AutoSize = true;
+            this.lblCurrentFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCurrentFile.Location = new System.Drawing.Point(12, 28);
             this.lblCurrentFile.Name = "lblCurrentFile";
-            this.lblCurrentFile.Size = new System.Drawing.Size(0, 13);
+            this.lblCurrentFile.Size = new System.Drawing.Size(109, 13);
             this.lblCurrentFile.TabIndex = 4;
+            this.lblCurrentFile.Text = "<No File Opened>";
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Text = "Help";
+            this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 47);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(61, 13);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Column List";
+            // 
+            // lblFilterOptions
+            // 
+            this.lblFilterOptions.AutoSize = true;
+            this.lblFilterOptions.Location = new System.Drawing.Point(12, 196);
+            this.lblFilterOptions.Name = "lblFilterOptions";
+            this.lblFilterOptions.Size = new System.Drawing.Size(68, 13);
+            this.lblFilterOptions.TabIndex = 6;
+            this.lblFilterOptions.Text = "Filter Options";
+            this.lblFilterOptions.Visible = false;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 165);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(105, 13);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Number of Records: ";
+            // 
+            // lblNumberOfRecords
+            // 
+            this.lblNumberOfRecords.AutoSize = true;
+            this.lblNumberOfRecords.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNumberOfRecords.Location = new System.Drawing.Point(123, 165);
+            this.lblNumberOfRecords.Name = "lblNumberOfRecords";
+            this.lblNumberOfRecords.Size = new System.Drawing.Size(14, 13);
+            this.lblNumberOfRecords.TabIndex = 8;
+            this.lblNumberOfRecords.Text = "0";
             // 
             // FrmFilterIt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(224, 230);
+            this.ClientSize = new System.Drawing.Size(283, 274);
+            this.Controls.Add(this.lblNumberOfRecords);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lblFilterOptions);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.lblCurrentFile);
             this.Controls.Add(this.ddFilters);
             this.Controls.Add(this.btnFilterIt);
@@ -171,6 +227,11 @@
         private System.Windows.Forms.ComboBox ddFilters;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.Label lblCurrentFile;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblFilterOptions;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblNumberOfRecords;
     }
 }
 
