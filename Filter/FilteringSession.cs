@@ -238,7 +238,10 @@ namespace Filter
 
         private bool ShouldRemoveRow(int selectedColumnIndex, DataRow row, FilterType filterType)
         {
-            string field = row[selectedColumnIndex].ToString().ToLower();
+            string field = row[selectedColumnIndex].ToString().ToLower().Trim();
+
+            if (field == String.Empty)
+                return true;
 
             switch (filterType)
             {

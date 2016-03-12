@@ -22,8 +22,8 @@ namespace FilterIt
                 ConfigurationManager.AppSettings["AddressStartsWith"].Split('|'));
 
             //Add items that correspond to FilterItems enum
-            ddFilters.Items.Add("PO Boxes");                    //0
-            ddFilters.Items.Add(".edu & .gov Email Addresses"); //1
+            ddFilters.Items.Add("PO Boxes and blanks");                 //0
+            ddFilters.Items.Add("blank, .edu & .gov Email Addresses");  //1
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
